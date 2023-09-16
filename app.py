@@ -6,8 +6,13 @@ from flask import jsonify
 app = Flask(__name__)
 CORS(app)
 
-# suma 
+# index principal 
 @app.route('/')
+def principal():
+    titulo = 'En la url define /(Operacion)/(numero1)/(numero2)'
+    return render_template('index.html', titulo=titulo)
+
+# suma 
 @app.route('/suma/<float:numero1>/<float:numero2>')
 @app.route('/suma/<int:numero1>/<int:numero2>')
 @app.route('/suma/<int:numero1>/<float:numero2>')
