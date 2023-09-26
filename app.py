@@ -1,5 +1,5 @@
 from flask_cors import CORS
-from flask import Flask, render_template
+from flask import Flask
 import math as mt
 from flask import jsonify
 
@@ -10,7 +10,6 @@ CORS(app)
 @app.route('/')
 def principal():
     titulo = 'En la url define /(Operacion)/(numero1)/(numero2)'
-    return render_template('index.html', titulo=titulo)
 
 # suma 
 @app.route('/suma/<float:numero1>/<float:numero2>')
@@ -25,7 +24,6 @@ def suma(numero1, numero2):
         'operacion' : 'Suma'
     }
     jsonify(data)
-    return render_template('index.html', titulo=titulo, resultado=resultado)
 
 
 # resta 
@@ -42,7 +40,6 @@ def resta(numero1, numero2):
         'operacion' : 'Resta'
     }
     jsonify(data)
-    return render_template('index.html', titulo=titulo, resultado=resultado)
 
 # multiplicacion 
 @app.route('/')
@@ -58,7 +55,6 @@ def multiplicacion(numero1, numero2):
         'operacion' : 'Multiplicacion'
     }
     jsonify(data)
-    return render_template('index.html', titulo=titulo, resultado=resultado)
 
 # division 
 @app.route('/')
@@ -74,7 +70,47 @@ def division(numero1, numero2):
         'operacion' : 'Division'
     }
     jsonify(data)
-    return render_template('index.html', titulo=titulo, resultado=resultado)
+
+# potenciacion 
+@app.route('/')
+@app.route('/potenciacion/<float:numero1>/<float:numero2>')
+@app.route('/potenciacion/<int:numero1>/<int:numero2>')
+@app.route('/potenciacion/<int:numero1>/<float:numero2>')
+@app.route('/potenciacion/<float:numero1>/<int:numero2>')
+def potenciacion(numero1, numero2):
+    titulo = 'Potenciacion'
+    resultado = f'el resultado de {numero1} ** {numero2} es: {numero1 ** numero2}'
+    data={
+        'resultado' : resultado,
+        'operacion' : 'Potenciacion'
+    }
+    jsonify(data)
+
+# seno 
+@app.route('/')
+@app.route('/seno/<float:numero1>')
+@app.route('/seno/<int:numero1>')
+def seno(numero1):
+    titulo = 'Seno'
+    resultado = f'el seno de {numero1} es: {mt.sin(numero1)}'
+    data={
+        'resultado' : resultado,
+        'operacion' : 'Seno'
+    }
+    jsonify(data)
+
+# coseno 
+@app.route('/')
+@app.route('/coseno/<float:numero1>')
+@app.route('/coseno/<int:numero1>')
+def coseno(numero1):
+    titulo = 'Coseno'
+    resultado = f'el coseno de {numero1} es: {mt.cos(numero1)}'
+    data={
+        'resultado' : resultado,
+        'operacion' : 'Coseno'
+    }
+    jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)
